@@ -49,6 +49,24 @@ module Enumerable
     # If no elements meet the condition, return false
     false
   end
+
+  # Define my_none?
+  def my_none?
+    # Check if the block is given; if not, check truthiness of elements
+    if !block_given?
+      my_each { |element| return false if element }
+      return true
+    end
+
+    # Iterate over each element and yield it to the block
+    my_each do |element|
+      # Return false if any element satisfies the block's condition
+      return false if yield(element)
+    end
+
+    # If no elements meet the condition, return true
+    true
+  end
 end
 
 # You will first have to define my_each
