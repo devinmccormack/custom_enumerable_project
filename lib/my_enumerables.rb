@@ -13,6 +13,24 @@ module Enumerable
     # Return the original enumerable
     self
   end
+
+  # Define my_all?
+  def my_all?
+    # Return true if the block is not given and all elements are truthy
+    if !block_given?
+      my_each { |element| return false unless element }
+      return true
+    end
+
+    # Iterate over each element and yield it to the block
+    my_each do |element|
+      # If the block returns false for any element, return false
+      return false unless yield(element)
+    end
+
+    # If all elements passed the block condition, return true
+    true
+  end
 end
 
 # You will first have to define my_each
