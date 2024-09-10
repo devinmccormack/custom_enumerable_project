@@ -67,6 +67,19 @@ module Enumerable
     # If no elements meet the condition, return true
     true
   end
+
+  # Define my_count
+  def my_count
+    # If a block is given, count elements that satisfy the condition
+    if block_given?
+      count = 0
+      my_each { |element| count += 1 if yield(element) }
+      return count
+    end
+
+    # If no block is given, return the size of the enumerable
+    size
+  end
 end
 
 # You will first have to define my_each
