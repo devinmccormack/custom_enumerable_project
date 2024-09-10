@@ -1,5 +1,18 @@
 module Enumerable
-  # Your code goes here
+  def my_each_with_index
+    # Return an enumerator if no block is given
+    return to_enum(:my_each_with_index) unless block_given?
+
+    # Use an index counter to yield each element and its index
+    index = 0
+    for element in self
+      yield(element, index)
+      index += 1
+    end
+
+    # Return the original enumerable
+    self
+  end
 end
 
 # You will first have to define my_each
