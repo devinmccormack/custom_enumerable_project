@@ -31,6 +31,24 @@ module Enumerable
     # If all elements passed the block condition, return true
     true
   end
+
+  # Define my_any?
+  def my_any?
+    # Check if the block is given; if not, check truthiness of elements
+    if !block_given?
+      my_each { |element| return true if element }
+      return false
+    end
+
+    # Iterate over each element and yield it to the block
+    my_each do |element|
+      # Return true if any element satisfies the block's condition
+      return true if yield(element)
+    end
+
+    # If no elements meet the condition, return false
+    false
+  end
 end
 
 # You will first have to define my_each
