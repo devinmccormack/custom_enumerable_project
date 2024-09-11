@@ -98,7 +98,24 @@ module Enumerable
     result
   end
 
-  
+  # Define my_inject
+  def my_inject(initial = nil, sym = nil)
+    # If the initial value is a symbol, shift it to sym
+    if initial.is_a?(Symbol) || initial.is_a?(String)
+      sym = initial
+      initial = nil
+    end
+
+    # If sym is given, convert it to a proc
+    if sym
+      my_each { |element| initial = initial ? initial.send(sym, element) : element }
+    else
+      # Otherwise, use the block provided
+      my_each { |element| initial = initial ? yield(initial, element) : element }
+    end
+
+    initial
+  end
 end
 
 # You will first have to define my_each
