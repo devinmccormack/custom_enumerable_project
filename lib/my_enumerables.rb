@@ -80,6 +80,25 @@ module Enumerable
     # If no block is given, return the size of the enumerable
     size
   end
+
+  # Define my_map
+  def my_map
+    result = []
+    
+    if block_given?
+      my_each do |element|
+        result << yield(element)
+      end
+    elsif !block_given? && Proc === Proc.new
+      my_each do |element|
+        result << Proc.new.call(element)
+      end
+    end
+    
+    result
+  end
+
+  
 end
 
 # You will first have to define my_each
